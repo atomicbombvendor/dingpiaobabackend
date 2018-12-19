@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" name="save" content="history">
+    <title>展会信息</title>
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/colResizable.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/jPaginate.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap-select.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='csss/base.css') }}" rel="stylesheet">
+
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/jquery.paginate.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/colResizable-1.5.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-select.js') }}"></script>
+    <script src="{{ url_for('static', filename='jss/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='layer/layer.js') }}"></script>
+</head>
+<body>
+<script>
+    function show_content(parm) {
+        var id = $(parm).attr("id").replace("&passengers", "");
+        var val = $("#" + id + "_content").val();
+        layer.open({
+            type: 1,
+            skin: 'layui-layer-demo', //样式类名
+            closeBtn: 0, //不显示关闭按钮
+            anim: 2,
+            shadeClose: true, //开启遮罩关闭
+            content: val
+        });
+    }
+</script>
+<h1><a href="/" style="text-align:center; ">车票信息</a></h1>
+
+<form name="myForm" action="" method="POST">
+    订单序号:<input width="20px" name="ticket_id" id="ticket_id">
+    电话:<input name='tel_phone' id="tel_phone">
+    身份证:<input name='id_card_num' id='id_card_num'>
+    状态选择:<select id="status_select" class="status_select" name="status_select">
+    <option value="0">所有</option>
+    <option value="1" selected="selected">未提交</option>
+    <option value="2">已提交</option>
+    <option value="3">已完成</option>
+</select>
+
+    <input type='hidden' id="del_info" value="none"/>
+    <input type='hidden' id="sort_info" value="none"/>
+    <input type='hidden' id="modify_status_info" value="none"/>
+    <input type='hidden' id="modify_status_value" value="none"/>
+    <input type='hidden' id="update_info" value="none"/>
+    <input type='hidden' id="search_info" value="none"/>
+    <input type='hidden' id="add_info" value="none"/>
+    <input type='hidden' id="current_page" value="none"/>
+    <input id="status_select_column" value="" type='hidden'/><br>
+    <input id="page_size" value="" type='hidden'/><br>
+    <button id="search" type='button' style="font-size:16px;">查找</button>
+    <br>
+    <b id="showNum"></b><br>
+
+
+    <!--分页-->
+    <div id="paginationdemo" class="paginate">
+        <div class="tool">
+            <input type="button" id="refresh_current_page" value="手动刷新数据">
+            <label for="adjust_page_size">设置每页显示数量:</label>
+            <input type="number" id="adjust_page_size" value="50"/>
+        </div>
+        <div id="paginate">
+        </div>
+    </div>
+
+    <table id="tickets" width="100%" border="0" cellpadding="0" cellspacing="0">
+
+        <thead>
+        <tr class="top">
+            <th width="2.2%">选择<span><input type='checkbox' id='select_all' value="全选"/></span></th>
+            <th width="2.2%">序号</th>
+            <th width="4.4%">
+                <a href="#" id="ticket_id" name="ticket_id" sort="">火车票序号</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.8%">
+                <a href="#" id="tel_phone" name="tel_phone" sort="">电话</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.8%">
+                <a href="#" name="idcard_num" sort="">身份证</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" sort="" name="ticket_date">乘车日期</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" sort="" name="start_from">出发地</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" id='end_to' name="end_to" sort="">终点</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" id="train_number" name="train_number" sort="">火车编号</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="11.3%">
+                <a href="#" sort="" name="passengers">乘客信息</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" sort="" name="passenger_num">乘客人数</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" sort="" name="success_rate">成功率</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" sort="" name="price">价钱</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" sort="" name="status">状态</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%">
+                <a href="#" sort="" name="create_date">添加日期</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="6.9%" height="60px">
+                <a href="#" sort="" name="update_date">更新日期</a>
+                <span class="datagrid-sort"></span>
+            </th>
+            <th width="40px">操作</th>
+        </tr>
+        </thead>
+
+        <tbody id="ticket-info">
+        <!--表格内容由createTable()动态生成-->
+        </tbody>
+    </table>
+    <button id="modify_status_1" type="button" style="font-size:16px;">设为 未提交</button>
+    <button id="modify_status_2" type="button" style="font-size:16px;">设为 已提交</button>
+    <button id="modify_status_3" type="button" style="font-size:16px;">设为 已完成</button>
+    <button id="import_submit" type='button' style="font-size:16px;">导出并设为提交</button>
+    <button id="only_import" type='button' style="font-size:16px;">只导出</button>
+</form>
+<div><a href="download">导出文件</a> </div>
+</body>
+</html>

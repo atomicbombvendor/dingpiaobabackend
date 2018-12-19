@@ -1,4 +1,5 @@
 import sae
-from myapp import app
+
+from app.data_show import app
 
 application = sae.create_wsgi_app(app)
