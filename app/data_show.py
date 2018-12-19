@@ -48,6 +48,17 @@ if update_info!='none'：
 """
 
 
+@app.route('/test/')
+def test():
+    total_num = Ticket.query.filter().count()
+    ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
+    if total_num:
+        return "测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(ticket)
+    else:
+        return "数据库连接失败"
+
+
+
 @app.route('/getargs/')
 def getArgs():
     page = request.args.get('Page', 1, type=int)
