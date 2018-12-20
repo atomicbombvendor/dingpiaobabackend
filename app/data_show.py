@@ -55,28 +55,26 @@ def test():
     total_num = Ticket.query.filter().count()
     ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
     if total_num:
-        return "URL" + SQLALCHEMY_DATABASE_URI + "测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(ticket)
+        return "URL" + SQLALCHEMY_DATABASE_URI + "测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(
+            ticket)
     else:
         return "URL" + SQLALCHEMY_DATABASE_URI + "数据库连接失败"
 
+
 @app.route("/download2")
 def test2():
-    ZIP_PATH2 = "saestor//target.zip"
-
-    create_file("hello", "saestor//1.txt")
-    zip1 = zipfile.ZipFile(ZIP_PATH2, "w", zipfile.ZIP_DEFLATED)
-    zip1.write(ZIP_PATH2, "saestor//1.txt")
-    zip1.close()
+    delete_path()
+    zip_all_data_text_for_test()
 
     # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
-    directory = os.path.join(ZIP_PATH2)  # 这里下载在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
+    directory = os.path.join(ZIP_PATH)  # 这里下载在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
     response = make_response(send_from_directory(directory, ZIP_FILE_NAME, as_attachment=True))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(ZIP_FILE_NAME.encode().decode('latin-1'))
     return response
 
+
 @app.route("/download3")
 def test2():
-
     return get_url()
 
 
@@ -369,6 +367,26 @@ def zip_all_data_text():
         count = count + 1
 
     update_status(tickets)
+
+    zip_dir()
+
+
+def zip_all_data_text_for_test():
+    # tickets = read_all_data()
+
+    count = 1
+    # for ticket_obj in tickets:
+    # ticket_json = get_ticket_json(ticket_obj, count)
+    create_file("ticket_json", TMP_PATH + str(count) + "_任务.txt")
+
+    # passenger_info = get_passenger(ticket_obj)
+    create_file("passenger_info", TMP_PATH + str(count) + "_乘客信息.txt")
+
+    # contact_info = get_contact_info(ticket_obj)
+    create_file("contact_info", TMP_PATH + str(count) + "_其他信息.txt")
+    count = count + 1
+
+    # update_status(tickets)
 
     zip_dir()
 
