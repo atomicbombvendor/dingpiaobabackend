@@ -5,7 +5,7 @@ import zipfile
 
 from flask import request, render_template, jsonify, redirect, url_for, send_from_directory, make_response
 from app.file_tool import byteify, zip_dir, create_file, generate_xml, delete_path
-from app.model_tool import get_tid, get_price, get_from_to, get_ticket_json2
+from app.model_tool import get_tid, get_price, get_from_to, get_ticket_json2, mock_ticket
 from app.sae_storage import get_url
 from app.txt_process import get_ticket_json, get_contact_info, get_passenger
 from app.xml_process import get_ticket, get_xml_ticket
@@ -55,10 +55,21 @@ def test():
     total_num = Ticket.query.filter().count()
     ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
     if total_num:
-        return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(
+        return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 测试数据连接：total_num=" + str(
+            total_num) + " ticket=" + get_ticket_json2(
             ticket)
     else:
         return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 数据库连接失败"
+
+
+@app.route('/test2/')
+def test():
+    return jsonify(result=get_ticket_json2(mock_ticket()))
+
+
+@app.route('/test3/')
+def test():
+    return get_ticket_json2(mock_ticket())
 
 
 @app.route("/download2")
