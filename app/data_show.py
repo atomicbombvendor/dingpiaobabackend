@@ -1,13 +1,15 @@
 # coding=utf-8
 import json
 import os
+import zipfile
 
 from flask import request, render_template, jsonify, redirect, url_for, send_from_directory, make_response
 from app.file_tool import byteify, zip_dir, create_file, generate_xml, delete_path
 from app.model_tool import get_tid, get_price, get_from_to, get_ticket_json2
+from app.sae_storage import get_url
 from app.txt_process import get_ticket_json, get_contact_info, get_passenger
 from app.xml_process import get_ticket, get_xml_ticket
-from config import PAGE_SIZE, TABLE_NAME
+from config import PAGE_SIZE, TABLE_NAME, SQLALCHEMY_DATABASE_URI
 from models import db, Ticket
 from create_app import app
 
@@ -53,10 +55,29 @@ def test():
     total_num = Ticket.query.filter().count()
     ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
     if total_num:
-        return "测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(ticket)
+        return "URL" + SQLALCHEMY_DATABASE_URI + "测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(ticket)
     else:
-        return "数据库连接失败"
+        return "URL" + SQLALCHEMY_DATABASE_URI + "数据库连接失败"
 
+@app.route("/download2")
+def test2():
+    ZIP_PATH2 = "saestor//target.zip"
+
+    create_file("hello", "saestor//1.txt")
+    zip1 = zipfile.ZipFile(ZIP_PATH2, "w", zipfile.ZIP_DEFLATED)
+    zip1.write(ZIP_PATH2, "saestor//1.txt")
+    zip1.close()
+
+    # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
+    directory = os.path.join(ZIP_PATH2)  # 这里下载在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
+    response = make_response(send_from_directory(directory, ZIP_FILE_NAME, as_attachment=True))
+    response.headers["Content-Disposition"] = "attachment; filename={}".format(ZIP_FILE_NAME.encode().decode('latin-1'))
+    return response
+
+@app.route("/download3")
+def test2():
+
+    return get_url()
 
 
 @app.route('/getargs/')
@@ -248,7 +269,7 @@ def downloader():
     zip_all_data_text()
 
     # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
-    directory = os.path.join(ZIP_PATH)  # 这里是下在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
+    directory = os.path.join(ZIP_PATH)  # 这里下载在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
     response = make_response(send_from_directory(directory, ZIP_FILE_NAME, as_attachment=True))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(ZIP_FILE_NAME.encode().decode('latin-1'))
     return response
