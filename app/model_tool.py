@@ -57,9 +57,9 @@ def get_ticket_json2(ticket):
               'train_number': ticket.train_number, 'passengers': ticket.passengers,
               'passenger_num': ticket.passenger_num,
               'success_rate': ticket.success_rate, 'price': ticket.price,
-              'status': ticket.status,
-              'create_date': ticket.create_date,
-              'update_date': ticket.update_date}
+              'status': ticket.status}
+              # 'create_date': ticket.create_date,
+              # 'update_date': ticket.update_date}
     return ticket
 
 def mock_ticket():
