@@ -69,7 +69,7 @@ def test():
 
 @app.route('/test3/')
 def test():
-    return get_ticket_json2(mock_ticket())
+    return str(get_ticket_json2(mock_ticket()))
 
 
 @app.route("/download2")
