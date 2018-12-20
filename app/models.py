@@ -85,3 +85,20 @@ class Ticket(db.Model):
             'createDate': self.create_date,
             'updateDate': self.update_date
         }
+
+    def to_str(self):
+        return '{"ticket_id":"' + self.ticket_id + '",' +\
+            '"tel_phone":"' + self.tel_phone + '",' +\
+            '"idcard_num":"' + self.idcard_num + '",' +\
+            '"ticket_date":"' + self.ticket_date + '",' +\
+            '"start_from":"' + self.start_from + '",' +\
+            '"end_to":"' + self.end_to + '",' +\
+            '"train_number":"' + self.train_number + '",' +\
+            '"passengers":"' + self.passengers + '",' +\
+            '"passenger_num":' + str(self.passenger_num) + ',' +\
+            '"from_to":"' + self.from_to + '",' +\
+            '"seat_type":"' + self.seat_type + '",' +\
+            '"is_student":' + str(self.is_student) + ',' +\
+            '"success_rate":' + str(self.success_rate) + ',' +\
+            '"price":' + str(self.price) + ',' +\
+            '"status":' + str(self.status) + '}'

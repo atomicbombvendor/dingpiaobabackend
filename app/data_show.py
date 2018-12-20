@@ -54,8 +54,8 @@ if update_info!='none'：
 """
 
 
-@app.route('/test/')
-def test():
+@app.route('/test1/')
+def test1():
     total_num = Ticket.query.filter().count()
     ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
     if total_num:
@@ -67,17 +67,20 @@ def test():
 
 
 @app.route('/test2/')
-def test():
-    return jsonify(result=get_ticket_json2(mock_ticket()))
+def test2():
+    # return str(jsonify(result=get_ticket_json2(mock_ticket())))
+    print str(get_ticket_json(mock_ticket(), "100", ))
+    return str(get_ticket_json(mock_ticket(), "100"))
 
 
 @app.route('/test3/')
-def test():
-    return str(get_ticket_json2(mock_ticket()))
+def test3():
+    print mock_ticket().to_str()
+    return mock_ticket().to_str()
 
 
 @app.route("/download2")
-def test2():
+def download2():
     delete_path()
     zip_all_data_text_for_test()
 

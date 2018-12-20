@@ -66,20 +66,31 @@ def get_ticket_json2(ticket):
               # 'update_date': ticket.update_date}
     return ticket
 
+def get_ticket_json2(ticket):
+    ticket = {'ticket_id': ticket.ticket_id, 'tel_phone': ticket.tel_phone, 'idcard_num': ticket.idcard_num,
+              'ticket_date': ticket.ticket_date, 'start_from': ticket.start_from, 'end_to': ticket.end_to,
+              'train_number': ticket.train_number, 'passengers': ticket.passengers,
+              'passenger_num': ticket.passenger_num,
+              'success_rate': ticket.success_rate, 'price': ticket.price,
+              'status': ticket.status}
+              # 'create_date': ticket.create_date,
+              # 'update_date': ticket.update_date}
+    return ticket
+
 def mock_ticket():
     ticket = Ticket(ticket_id='tid01',
                     tel_phone='1199883',
                     idcard_num="988223",
                     ticket_date='[2018-12-15][2018-12-16]',
-                    start_from='[北京][北京北][北京东][北京南][北京西][昌平北]'.decode("utf-8"),
-                    end_to='[汉口][武昌][武汉]'.decode("utf-8"),
+                    start_from='[北京][北京北][北京东][北京南][北京西][昌平北]',
+                    end_to='[汉口][武昌][武汉]',
                     train_number='[C7084][D944][T96][G2922]',
-                    passengers='[岑晓威,1,440307199608140313_1][付新鹏,1,652325199009083410_1][方章伟,1,445224199104012452_1][黄河长,1,43282219761010097X_1][康志香,1,430523198004150064]'.decode("utf-8"),
+                    passengers='[岑晓威,1,440307199608140313_1][付新鹏,1,652325199009083410_1][方章伟,1,445224199104012452_1][黄河长,1,43282219761010097X_1][康志香,1,430523198004150064]',
                     passenger_num=5,
                     success_rate=80,
                     price=100,
                     status=1,
-                    seat_type='[一等座][二等座][软卧][硬卧][硬座]'.decode("utf-8"),
+                    seat_type='[一等座][二等座][软卧][硬卧][硬座]',
                     is_student=0,
-                    from_to='北京--武汉'.decode("utf-8"))
+                    from_to='北京--武汉')
     return ticket
