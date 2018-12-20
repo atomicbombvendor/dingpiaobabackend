@@ -55,10 +55,10 @@ def test():
     total_num = Ticket.query.filter().count()
     ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
     if total_num:
-        return "URL" + app.config['SQLALCHEMY_DATABASE_URI'] + "测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(
+        return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 测试数据连接：total_num=" + str(total_num) + " ticket=" + get_ticket_json2(
             ticket)
     else:
-        return "URL" + app.config['SQLALCHEMY_DATABASE_URI'] + "数据库连接失败"
+        return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 数据库连接失败"
 
 
 @app.route("/download2")
