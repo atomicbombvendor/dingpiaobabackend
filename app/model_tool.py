@@ -4,6 +4,10 @@ import random
 from app.config import SINGLE_PRICE
 from app.models import Ticket
 
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf8')
 
 def get_tid():
     flag = True
