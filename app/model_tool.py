@@ -1,3 +1,4 @@
+# coding=utf-8
 import random
 
 from app.config import SINGLE_PRICE
