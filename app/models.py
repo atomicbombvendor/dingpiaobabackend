@@ -1,10 +1,10 @@
 # coding=utf-8
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
-# try:
-#     from flaskext.sqlalchemy import SQLAlchemy
-# except:
-#     from flask.ext.sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+try:
+    from flaskext.sqlalchemy import SQLAlchemy
+except:
+    from flask.ext.sqlalchemy import SQLAlchemy
 from create_app import app
 
 db = SQLAlchemy(app)
