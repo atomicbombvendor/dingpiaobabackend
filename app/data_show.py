@@ -90,7 +90,7 @@ def download2():
 
 
 @app.route("/download3")
-def test2():
+def download3():
     return get_url()
 
 
