@@ -75,6 +75,13 @@ def test3():
     print mock_ticket().to_str()
     return mock_ticket().to_str()
 
+
+@app.route('/test4/')
+def test3():
+    t = Ticket.query.filter().first()
+    return t.to_str()
+
+
 @app.route('/add/')
 def test4():
     total_num = Ticket.query.filter(
