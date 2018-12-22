@@ -8,8 +8,8 @@ from flask import request, render_template, jsonify, redirect, url_for, send_fro
 from app.file_tool import byteify, zip_dir, create_file, generate_xml, delete_path
 from app.model_tool import get_tid, get_price, get_from_to, get_ticket_json2, mock_ticket
 # from app.sae_storage import get_url
-from app.sae_storage import get_url
-from app.txt_process import get_ticket_json, get_contact_info, get_passenger
+from app.sae_storage import get_url, write_storage
+from app.txt_process import get_ticket_json, get_contact_info, get_passenger, get_task
 from app.xml_process import get_ticket, get_xml_ticket
 from config import PAGE_SIZE, TABLE_NAME
 from models import db, Ticket
@@ -99,21 +99,9 @@ def test4():
         return "执行插入"
 
 
-@app.route("/download2")
-def download2():
-    delete_path()
-    zip_all_data_text_for_test()
-
-    # 需要知道2个参数, 第1个参数是本地目录的path, 第2个参数是文件名(带扩展名)
-    directory = os.path.join(ZIP_PATH)  # 这里下载在目录，从工程的根目录写起，比如你要下载static/js里面的js文件，这里就要写“static/js”
-    response = make_response(send_from_directory(directory, ZIP_FILE_NAME, as_attachment=True))
-    response.headers["Content-Disposition"] = "attachment; filename={}".format(ZIP_FILE_NAME.encode().decode('latin-1'))
-    return response
-
-
 @app.route("/download3")
 def download3():
-    return get_url()
+    return storage_all_data_text()
 
 
 @app.route('/getargs/')
@@ -387,6 +375,18 @@ def zip_all_data():
         generate_xml(current_passenger_num, ticket_info_node, passenger_info_node)
 
     zip_dir()
+
+
+def storage_all_data_text():
+    tickets = read_all_data()
+    count = 1
+    content = '没有数据可以导出'
+    for ticket_obj in tickets:
+        content = get_task(ticket_obj, count)
+        count = count + 1
+
+    # update_status(tickets)
+    return write_storage(content)
 
 
 def zip_all_data_text():

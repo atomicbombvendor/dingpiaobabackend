@@ -9,6 +9,7 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
 
+
 def get_tid():
     flag = True
     tid = ""
@@ -62,9 +63,10 @@ def get_ticket_json2(ticket):
               'passenger_num': ticket.passenger_num,
               'success_rate': ticket.success_rate, 'price': ticket.price,
               'status': ticket.status}
-              # 'create_date': ticket.create_date,
-              # 'update_date': ticket.update_date}
+    # 'create_date': ticket.create_date,
+    # 'update_date': ticket.update_date}
     return ticket
+
 
 def get_ticket_json2(ticket):
     ticket = {'ticket_id': ticket.ticket_id, 'tel_phone': ticket.tel_phone, 'idcard_num': ticket.idcard_num,
@@ -73,9 +75,10 @@ def get_ticket_json2(ticket):
               'passenger_num': ticket.passenger_num,
               'success_rate': ticket.success_rate, 'price': ticket.price,
               'status': ticket.status}
-              # 'create_date': ticket.create_date,
-              # 'update_date': ticket.update_date}
+    # 'create_date': ticket.create_date,
+    # 'update_date': ticket.update_date}
     return ticket
+
 
 def mock_ticket():
     ticket = Ticket(ticket_id='tid01',
