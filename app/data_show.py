@@ -76,6 +76,20 @@ def test3():
     print mock_ticket().to_str()
     return mock_ticket().to_str()
 
+@app.route('/add/')
+def test4():
+    total_num = Ticket.query.filter(
+        Ticket.ticket_id == 'tid01'
+    ).count()
+
+    if total_num >= 1:
+        return "add success"
+    else:
+        ticket = mock_ticket()
+        result = db.session.add(ticket)
+        db.session.commit()
+        return "执行插入"
+
 
 @app.route("/download2")
 def download2():
