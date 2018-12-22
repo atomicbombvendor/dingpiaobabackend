@@ -312,7 +312,7 @@ def downloader():
 
 
 # 小程序提交任务请求
-@app.route('/wx/')
+@app.route('/wx/add/')
 def wx_submit():
     account = request.args.get('account', '', type=str)
     account_password = request.args.get('account_password', '', type=str)
@@ -346,9 +346,9 @@ def wx_submit():
                     is_student=0,
                     from_to=get_from_to(start_from, end_to))
 
-    result = db.session.add(ticket)
+    db.session.add(ticket)
     db.session.commit()
-    return jsonify(result=get_ticket_json2(ticket))
+    return ticket.to_str()
 
 
 # 生成xml
