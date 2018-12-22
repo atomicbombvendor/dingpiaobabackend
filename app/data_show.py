@@ -307,6 +307,12 @@ def show(is_submit):
     return content
 
 
+@app.route("/show2/", methods=['GET', 'POST'])
+def show_submited():
+    content = storage_all_data_text(is_submit=0, status=1)
+    return content
+
+
 # 小程序提交任务请求
 @app.route('/wx_add/')
 def wx_submit():
@@ -352,7 +358,7 @@ def zip_all_data():
     # 需要考虑 status 字段
     current_passenger_num = 0
     ticket_info_node, passenger_info_node = '', ''
-    tickets = read_all_data()
+    tickets = read_all_data(0)
 
     for ticket_obj in tickets:
 
@@ -385,21 +391,25 @@ def zip_all_data():
     zip_dir()
 
 
-def storage_all_data_text(is_submit):
-    tickets = read_all_data()
+def storage_all_data_text(is_submit=0, status=0):
+    tickets = read_all_data(status)
     count = 1
     content = '没有数据可以导出\r\n'
+
+    if len(tickets):
+        content = ''
+
     for ticket_obj in tickets:
         content += get_task(ticket_obj, count)
         count = count + 1
 
-    if is_submit:
+    if is_submit == 1:
         update_status(tickets)
     return content
 
 
 def zip_all_data_text():
-    tickets = read_all_data()
+    tickets = read_all_data(0)
 
     count = 1
     for ticket_obj in tickets:
@@ -438,8 +448,8 @@ def zip_all_data_text_for_test():
     zip_dir()
 
 
-def read_all_data():
-    return Ticket.query.filter(Ticket.status == 0).all()
+def read_all_data(status):
+    return Ticket.query.filter(Ticket.status == status).all()
 
 
 def update_status(tickets):
