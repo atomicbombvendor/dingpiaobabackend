@@ -312,7 +312,7 @@ def downloader():
 
 
 # 小程序提交任务请求
-@app.route('/wx/add/')
+@app.route('/wx_add/')
 def wx_submit():
     account = request.args.get('account', '', type=str)
     account_password = request.args.get('account_password', '', type=str)
