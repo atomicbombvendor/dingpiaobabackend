@@ -388,10 +388,7 @@ def zip_all_data():
 def storage_all_data_text(is_submit):
     tickets = read_all_data()
     count = 1
-    content = '没有数据可以导出'
-    if tickets:
-        content = ''
-
+    content = '没有数据可以导出\r\n'
     for ticket_obj in tickets:
         content += get_task(ticket_obj, count)
         count = count + 1
