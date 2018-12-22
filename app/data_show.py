@@ -77,7 +77,7 @@ def test3():
 
 
 @app.route('/test4/')
-def test3():
+def test5():
     t = Ticket.query.filter().first()
     return t.to_str()
 
@@ -389,6 +389,9 @@ def storage_all_data_text(is_submit):
     tickets = read_all_data()
     count = 1
     content = '没有数据可以导出'
+    if len(tickets):
+        content = ''
+
     for ticket_obj in tickets:
         content += get_task(ticket_obj, count)
         count = count + 1
