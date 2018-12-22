@@ -394,7 +394,7 @@ def storage_all_data_text():
     count = 1
     content = '没有数据可以导出'
     for ticket_obj in tickets:
-        content = get_task(ticket_obj, count)
+        content += get_task(ticket_obj, count)
         count = count + 1
 
     # update_status(tickets)
