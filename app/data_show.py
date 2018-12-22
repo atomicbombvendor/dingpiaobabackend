@@ -294,20 +294,16 @@ def downloader():
     return response
 
 
-@app.route("/download3")
-def download3():
-    return storage_all_data_text()
+@app.route("/file/<is_submit>", methods=['GET', 'POST'])
+def download3(is_submit):
+    content = storage_all_data_text(is_submit)
+    write_storage(content)
+    return get_url()
 
 
-@app.route("/show")
-def show():
-    tickets = read_all_data()
-    count = 1
-    content = '没有数据可以导出'
-    for ticket_obj in tickets:
-        content = get_task(ticket_obj, count)
-        count = count + 1
-
+@app.route("/show/<is_submit>", methods=['GET', 'POST'])
+def show(is_submit):
+    content = storage_all_data_text(is_submit)
     return content
 
 
@@ -389,7 +385,7 @@ def zip_all_data():
     zip_dir()
 
 
-def storage_all_data_text():
+def storage_all_data_text(is_submit):
     tickets = read_all_data()
     count = 1
     content = '没有数据可以导出'
@@ -397,8 +393,9 @@ def storage_all_data_text():
         content += get_task(ticket_obj, count)
         count = count + 1
 
-    # update_status(tickets)
-    return write_storage(content)
+    if is_submit:
+        update_status(tickets)
+    return content
 
 
 def zip_all_data_text():
