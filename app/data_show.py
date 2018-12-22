@@ -99,11 +99,6 @@ def test4():
         return "执行插入"
 
 
-@app.route("/download3")
-def download3():
-    return storage_all_data_text()
-
-
 @app.route('/getargs/')
 def getArgs():
     page = request.args.get('Page', 1, type=int)
@@ -297,6 +292,23 @@ def downloader():
     response = make_response(send_from_directory(directory, ZIP_FILE_NAME, as_attachment=True))
     response.headers["Content-Disposition"] = "attachment; filename={}".format(ZIP_FILE_NAME.encode().decode('latin-1'))
     return response
+
+
+@app.route("/download3")
+def download3():
+    return storage_all_data_text()
+
+
+@app.route("/show")
+def show():
+    tickets = read_all_data()
+    count = 1
+    content = '没有数据可以导出'
+    for ticket_obj in tickets:
+        content = get_task(ticket_obj, count)
+        count = count + 1
+
+    return content
 
 
 # 小程序提交任务请求
