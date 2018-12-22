@@ -82,8 +82,10 @@ def test4():
         Ticket.ticket_id == 'tid01'
     ).count()
 
+    t = Ticket.query.filter().first()
+
     if total_num >= 1:
-        return "add success"
+        return "add success " + get_ticket_json2(t)
     else:
         ticket = mock_ticket()
         result = db.session.add(ticket)
