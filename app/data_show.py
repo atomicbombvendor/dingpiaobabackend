@@ -55,7 +55,7 @@ if update_info!='none'：
 @app.route('/test1/')
 def test1():
     total_num = Ticket.query.filter().count()
-    ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
+    ticket = Ticket.query.filter(Ticket.ticket_id == 'tid01').first()
     if total_num:
         return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 测试数据连接：total_num=" + str(
             total_num) + " ticket=" + ticket.to_str()
