@@ -58,8 +58,7 @@ def test1():
     ticket = Ticket.query.filter(Ticket.ticket_id == 'tid1').first()
     if total_num:
         return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 测试数据连接：total_num=" + str(
-            total_num) + " ticket=" + get_ticket_json2(
-            ticket)
+            total_num) + " ticket=" + ticket.to_str()
     else:
         return "URL " + app.config.get("SQLALCHEMY_DATABASE_URI") + " 数据库连接失败"
 
