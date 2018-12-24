@@ -1,19 +1,18 @@
 # coding=utf-8
 import json
 import os
-import zipfile
-import sys
 
 from flask import request, render_template, jsonify, redirect, url_for, send_from_directory, make_response
+
 from app.file_tool import byteify, zip_dir, create_file, generate_xml, delete_path
-from app.model_tool import get_tid, get_price, get_from_to, get_ticket_json2, mock_ticket
-# from app.sae_storage import get_url
+from app.model_tool import get_tid, get_price, get_from_to, mock_ticket
+from app.sae_storage import get_url
 from app.sae_storage import get_url, write_storage
 from app.txt_process import get_ticket_json, get_contact_info, get_passenger, get_task
 from app.xml_process import get_ticket, get_xml_ticket
 from config import PAGE_SIZE, TABLE_NAME
-from models import db, Ticket
 from create_app import app
+from models import db, Ticket
 
 ZIP_PATH = app.root_path + "\\static\\download\\"
 TMP_PATH = app.root_path + "\\static\\temp\\"

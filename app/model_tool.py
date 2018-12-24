@@ -35,20 +35,22 @@ def create_ticket_id():
 
 
 def get_price(passenger_num, percent):
-    if str(percent) == "0":
+    multiple = 1
+    if int(percent) >= 0:
         return 0
 
-    if str(percent) == "25":
-        return SINGLE_PRICE * int(passenger_num)
+    if 25 <= int(percent) < 50:
+        multiple = 1
 
-    if str(percent) == "50":
-        return SINGLE_PRICE * int(passenger_num)
+    if 50 <= int(percent) < 75:
+        multiple = 2
 
-    if str(percent) == "75":
-        return SINGLE_PRICE * int(passenger_num)
+    if 75 <= int(percent) < 96:
+        multiple = 3
 
-    if str(percent) == "96":
-        return SINGLE_PRICE * int(passenger_num)
+    if int(percent) >= 96:
+        multiple = 14
+    return SINGLE_PRICE * int(passenger_num) * multiple
 
 
 def get_from_to(start_from, end_to):
@@ -78,6 +80,10 @@ def get_ticket_json2(ticket):
     # 'create_date': ticket.create_date,
     # 'update_date': ticket.update_date}
     return ticket
+
+
+def get_passenger(passengers):
+    return passengers.replace(",1,", "").split("_1", "")
 
 
 def mock_ticket():

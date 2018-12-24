@@ -1,6 +1,8 @@
 # coding=utf-8
 from datetime import datetime
 # from flask_sqlalchemy import SQLAlchemy
+from app.model_tool import get_passenger
+
 try:
     from flaskext.sqlalchemy import SQLAlchemy
 except:
@@ -94,7 +96,7 @@ class Ticket(db.Model):
             '"start_from":"' + self.start_from + '",' +\
             '"end_to":"' + self.end_to + '",' +\
             '"train_number":"' + self.train_number + '",' +\
-            '"passengers":"' + self.passengers + '",' +\
+            '"passengers":"' + get_passenger(self.passengers) + '",' +\
             '"passenger_num":' + str(self.passenger_num) + ',' +\
             '"from_to":"' + self.from_to + '",' +\
             '"seat_type":"' + self.seat_type + '",' +\
