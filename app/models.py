@@ -1,7 +1,7 @@
 # coding=utf-8
 from datetime import datetime
 # from flask_sqlalchemy import SQLAlchemy
-from app.model_tool import get_passenger
+from app.model_tool import get_split_passenger
 
 try:
     from flaskext.sqlalchemy import SQLAlchemy
@@ -96,7 +96,7 @@ class Ticket(db.Model):
             '"start_from":"' + self.start_from + '",' +\
             '"end_to":"' + self.end_to + '",' +\
             '"train_number":"' + self.train_number + '",' +\
-            '"passengers":"' + get_passenger(self.passengers) + '",' +\
+            '"passengers":"' + get_split_passenger(self.passengers) + '",' +\
             '"passenger_num":' + str(self.passenger_num) + ',' +\
             '"from_to":"' + self.from_to + '",' +\
             '"seat_type":"' + self.seat_type + '",' +\

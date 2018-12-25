@@ -82,7 +82,7 @@ def get_ticket_json2(ticket):
     return ticket
 
 
-def get_passenger(passengers):
+def get_split_passenger(passengers):
     return passengers.replace(",1,", "").split("_1", "")
 
 
