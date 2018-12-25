@@ -17,8 +17,8 @@ def get_passenger(ticket_obj):
 
 
 def get_contact_info(ticket_obj):
-    return "订单号: " + ticket_obj.ticket_id + " \r\n电话: " + ticket_obj.tel_phone + "\r\n订单单价: " + str(ticket_obj.price) \
-           + "\r\n订单人数: " + str(ticket_obj.passenger_num) + "\r\n总价: " + str(int(ticket_obj.price) * int(ticket_obj.passenger_num))
+    return "订单号: " + ticket_obj.ticket_id + " <br/>电话: " + ticket_obj.tel_phone + "<br/>订单单价: " + str(ticket_obj.price) \
+           + "<br/>订单人数: " + str(ticket_obj.passenger_num) + "<br/>总价: " + str(int(ticket_obj.price) * int(ticket_obj.passenger_num))
 
 
 def get_ticket_json(ticket_obj, num):
@@ -39,7 +39,7 @@ def get_ticket_json(ticket_obj, num):
                     ticket_obj.passengers.replace("][", ","), ticket_obj.seat_type, ticket_obj.train_number,
                     ticket_obj.is_student)
 
-    content = "[%s]\r\n任务=%s" % (str(num), content_t)
+    content = "[%s]<br/><br/>任务=%s" % (str(num), content_t)
     return content
 
 
@@ -53,8 +53,5 @@ def get_task(ticket_obj, count):
     other = "其他信息_" + str(count) + ".txt"
     contact_info = get_contact_info(ticket_obj)
 
-    # return "***********************\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n****************" \
-    #        % (task_name, ticket_json, passenger_name, passenger_info, other, contact_info)
-
-    return "***********************</br>%s</br></br>%s</br></br>%s</br></br>%s</br></br>%s</br></br>%s</br>****************" \
+    return "***********************</br>%s</br></br>%s</br>%s</br>%s</br></br>%s</br>%s<br/></br>****************" \
            % (task_name, ticket_json, passenger_name, passenger_info, other, contact_info)
