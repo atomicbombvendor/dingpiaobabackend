@@ -11,7 +11,7 @@ def get_passenger(ticket_obj):
     temp = ticket_obj.passengers.split("][")
     for t in temp:
         t = t.replace("[", "").replace("]", "").replace("_1", "").split(",")
-        content = content + t[0] + "," + t[2] + "\r\n"
+        content = content + t[0] + "," + t[2] + "</br>"
 
     return content
 
