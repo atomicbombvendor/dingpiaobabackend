@@ -86,7 +86,9 @@ def test4():
         Ticket.ticket_id == 'tid01'
     ).count()
 
-    t = Ticket.query.filter().first()
+    t = Ticket.query.filter(
+        Ticket.ticket_id == 'tid01'
+    ).first()
 
     if total_num >= 1:
         return "add success " + t.to_str()
