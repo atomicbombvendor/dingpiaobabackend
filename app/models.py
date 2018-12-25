@@ -94,7 +94,7 @@ class Ticket(db.Model):
             '"start_from":"' + self.start_from + '",' +\
             '"end_to":"' + self.end_to + '",' +\
             '"train_number":"' + self.train_number + '",' +\
-            '"passengers":"' + self.passengers.replace(",1,", "").split("_1", "") + '",' +\
+            '"passengers":"' + self.passengers.replace("][", ",") + '",' +\
             '"passenger_num":' + str(self.passenger_num) + ',' +\
             '"from_to":"' + self.from_to + '",' +\
             '"seat_type":"' + self.seat_type + '",' +\
