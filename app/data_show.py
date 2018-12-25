@@ -297,16 +297,19 @@ def downloader():
 @app.route("/file/<is_submit>", methods=['GET', 'POST'])
 def download3(is_submit):
     content = storage_all_data_text(is_submit)
+    print ("write storage file content>>> %s" % content)
     write_storage(content)
     return get_url()
 
 
+# 展示没有提交的
 @app.route("/show/<is_submit>", methods=['GET', 'POST'])
 def show(is_submit):
     content = storage_all_data_text(is_submit)
     return content
 
 
+# 展示所有提交的
 @app.route("/show2/", methods=['GET', 'POST'])
 def show_submited():
     content = storage_all_data_text(is_submit=0, status=1)

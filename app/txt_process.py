@@ -36,7 +36,8 @@ def get_ticket_json(ticket_obj, num):
                 '"Interval": "500", "Partial": "1", "Autocancel": "0", "Student": "%d", ' \
                 '"Note": "", "EndTime": ""}' % (
                     num, ticket_obj.start_from, ticket_obj.end_to, ticket_obj.ticket_date, ticket_obj.from_to,
-                    ticket_obj.passengers, ticket_obj.seat_type, ticket_obj.train_number, ticket_obj.is_student)
+                    ticket_obj.passengers.replace("][", ","), ticket_obj.seat_type, ticket_obj.train_number,
+                    ticket_obj.is_student)
 
     content = "[%s]\r\n任务=%s" % (str(num), content_t)
     return content
@@ -52,5 +53,5 @@ def get_task(ticket_obj, count):
     other = "其他信息_" + str(count) + ".txt"
     contact_info = get_contact_info(ticket_obj)
 
-    return "***********************\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n%s\r\n****************"\
+    return "***********************\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n\r\n%s\r\n****************" \
            % (task_name, ticket_json, passenger_name, passenger_info, other, contact_info)
