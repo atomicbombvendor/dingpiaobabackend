@@ -53,5 +53,5 @@ def get_task(ticket_obj, count):
     other = "其他信息_" + str(count) + ".txt"
     contact_info = get_contact_info(ticket_obj)
 
-    return "***********************</br> >>>>%s<<<< </br></br>%s</br> >>>>%s<<<< </br>%s</br></br> >>>>%s<<<< </br>%s<br/></br>****************" \
+    return "***********************</br> >>>>%s<<<< </br></br>%s</br></br> >>>>%s<<<< </br>%s</br></br> >>>>%s<<<< </br>%s<br/></br>****************" \
            % (task_name, ticket_json, passenger_name, passenger_info, other, contact_info)
