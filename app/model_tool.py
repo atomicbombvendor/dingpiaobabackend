@@ -70,22 +70,6 @@ def get_ticket_json2(ticket):
     return ticket
 
 
-def get_ticket_json2(ticket):
-    ticket = {'ticket_id': ticket.ticket_id, 'tel_phone': ticket.tel_phone, 'idcard_num': ticket.idcard_num,
-              'ticket_date': ticket.ticket_date, 'start_from': ticket.start_from, 'end_to': ticket.end_to,
-              'train_number': ticket.train_number, 'passengers': ticket.passengers,
-              'passenger_num': ticket.passenger_num,
-              'success_rate': ticket.success_rate, 'price': ticket.price,
-              'status': ticket.status}
-    # 'create_date': ticket.create_date,
-    # 'update_date': ticket.update_date}
-    return ticket
-
-
-def get_split_passenger(passengers):
-    return passengers.replace(",1,", "").split("_1", "")
-
-
 def mock_ticket():
     ticket = Ticket(ticket_id='tid01',
                     tel_phone='1199883',
